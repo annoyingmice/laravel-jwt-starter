@@ -1,5 +1,53 @@
-# PHP Starter
+QPRO v2 API
 
-Quickly get started with [PHP](https://www.php.net/) using this starter! PHP is a popular general-purpose scripting language that is especially suited to web development.
-
-This starter starts a PHP web server on [localhost:8080](http://localhost:8080).
+#### Todos
+- <del>JWT Lib</del>
+- <del>Login (User, Admin)</del>
+- Role
+    - clerk
+    - admin
+- Permission
+    - all
+    - etc..
+- Dashboard
+    - served
+    - active clerks
+    - queue
+    - priority count
+    - departments queue
+    - total tickets
+    - avg. waiting
+    - avg. processing
+    - avg. total
+    - filters
+        - date
+        - branch
+        - department
+    - graph data
+        - avg. waitig by time
+        - avg. total by time
+        - avg. waiting by time
+        - avg. process by time
+        - filters
+            - minutes
+            - [day, month, year]
+    - table
+        - filter
+            - [by department, by clerk]
+            - date
+            - [day, month, year]
+- Branch
+    - settings
+- Kiosk
+- Monitor
+- Configs
+- Access
+- Transaction Type
+    - Sub type
+- Departments
+- Queue
+- Daily history
+- Incomplete
+- Look up
+- Report
+- Rating / Feedback
