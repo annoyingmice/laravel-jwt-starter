@@ -10,6 +10,15 @@ class RoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Setup run before each test
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->initialize();
+    }
+
     public function test_should_list_roles(): void
     {
         $response = $this->get("$this->baseV1/roles?limit=1", ['Authorization' => "Bearer $this->token"]);
@@ -26,21 +35,21 @@ class RoleTest extends TestCase
 
     public function test_should_update_role(): void
     {
-        $response = $this->putJson("$this->baseV1/roles/1", ['name' => 'test1', 'owner' => null], ['Authorization' => "Bearer $this->token"]);
+        $response = $this->putJson("$this->baseV1/roles/".$this->getSlugId('roles'), ['name' => 'test1', 'owner' => null], ['Authorization' => "Bearer $this->token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }
 
     public function test_should_show_role(): void
     {
-        $response = $this->get("$this->baseV1/roles/1", ['Authorization' => "Bearer $this->token"]);
+        $response = $this->get("$this->baseV1/roles/".$this->getSlugId('roles'), ['Authorization' => "Bearer $this->token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }
 
     public function test_should_delete_role(): void
     {
-        $response = $this->get("$this->baseV1/roles/1", ['Authorization' => "Bearer $this->token"]);
+        $response = $this->get("$this->baseV1/roles/".$this->getSlugId('roles'), ['Authorization' => "Bearer $this->token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }

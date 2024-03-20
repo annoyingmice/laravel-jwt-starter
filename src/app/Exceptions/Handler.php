@@ -9,6 +9,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,6 +48,11 @@ class Handler extends ExceptionHandler
                 return response()->json(
                     $this->serializeResponse($e),
                     Response::HTTP_NOT_FOUND
+                );
+            case $e instanceof ValidationException:
+                return response()->json(
+                    $this->serializeResponse($e),
+                    Response::HTTP_UNPROCESSABLE_ENTITY
                 );
             default:
                 return response()->json(

@@ -15,7 +15,7 @@ trait UserRoleTrait
 
     public function assignRole(UserRoleCreateDto $dto): User
     {
-        $user = User::findBySlug($dto->user_id);
+        $user = User::find($dto->user_id);
         if (!$user) {
             throw new ModelNotFoundException('Role not found');
         }

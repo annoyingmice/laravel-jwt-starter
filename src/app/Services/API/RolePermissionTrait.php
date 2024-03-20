@@ -15,7 +15,7 @@ trait RolePermissionTrait
 
     public function assignPermission(RolePermissionCreateDto $dto): Role
     {
-        $role = Role::findBySlug($dto->role_id);
+        $role = Role::find($dto->role_id);
         if (!$role) {
             throw new ModelNotFoundException('Role not found');
         }

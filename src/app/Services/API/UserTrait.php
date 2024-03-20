@@ -3,10 +3,7 @@
 namespace App\Services\API;
 
 use App\Dto\API\UserCreateDto;
-use App\Exceptions\HttpException;
 use App\Models\User;
-use Exception;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 trait UserTrait
@@ -31,7 +28,12 @@ trait UserTrait
         $user->email = $dto->email;
         $user->phone = $dto->phone;
         $user->address = $dto->address;
-        $user->password = Hash::make($dto->password);
+        
+        if(!is_null($dto->password)) 
+        {
+            $user->password = Hash::make($dto->password);
+        }
+
         $user->save();
         return $user;
     }

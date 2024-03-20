@@ -9,12 +9,15 @@ services:
             context: ./php
             dockerfile: Dockerfile
         container_name: php
+        working_dir: /var/www/html
         ports:
             - 80:80
         volumes:
-            - ./src:/var/www
+            - ./src:/var/www/html
         networks:
             - manager
+        environment:
+            APACHE_DOCUMENT_ROOT: /var/www/html/public
     database:
         image: mysql:latest
         container_name: database

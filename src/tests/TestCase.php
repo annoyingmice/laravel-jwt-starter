@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -17,21 +18,26 @@ abstract class TestCase extends BaseTestCase
      */
     protected $seed = true;
 
-    protected $baseV1 = '/api/v1';
+    protected $baseV1 = '/api';
 
     // @TODO
     // Should run artisan in test env
     // $this->artisan('app:rsa');
 
-    protected function setUp(): void
+    public function initialize(): void
     {
-        parent::setUp();
-        $this->token = $this->v1GetToken();
+        $this->postJson("$this->baseV1/login", ['phone' => '1234']);
+        $response = $this->postJson("$this->baseV1/verify", ['otp' => '123456']);
+        $this->token = $response->json()['data']['access_token'];
     }
 
-    private function v1GetToken()
+    /**
+     * Helper method to get slug ID
+     * @test
+     */
+    protected function getSlugId(string $uri): string
     {
-        $response = $this->postJson("$this->baseV1/verify", ['otp' => '123456']);
-        return $response->json()['data']['access_token'];
+        $response = $this->get("$this->baseV1/$uri?limit=1", ['Authorization' => "Bearer $this->token"]);
+        return $response->json()['data'][0]['slug'];
     }
 }

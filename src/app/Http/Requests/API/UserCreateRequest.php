@@ -25,16 +25,16 @@ class UserCreateRequest extends FormRequest
             'first_name' => ['required'],
             'middle_name' => [],
             'last_name' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email,'.$this->route('user')],
+            'email' => ['required', 'email', 'unique:users,email,slug'],
             // @TODO
             // @FRONTEND
             // Format: (+00)-000-000-0000 / 000-0000
-            'phone' => ['required', 'unique:users,phone,'.$this->route('user')],
+            'phone' => ['required', 'unique:users,phone,slug'],
             // @TODO
             // @FRONTEND
             // country, region, state/province, city/municipality, Str. Name, House No./ Building No.
             'address' => ['required'],
-            'password' => ['required', 'confirmed']
+            'password' => []
         ];
     }
 }

@@ -10,6 +10,15 @@ class PermissionTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Setup run before each test
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->initialize();
+    }
+
     public function test_should_list_permissions(): void
     {
         $response = $this->get("$this->baseV1/permissions?limit=1", ['Authorization' => "Bearer $this->token"]);
@@ -26,21 +35,21 @@ class PermissionTest extends TestCase
 
     public function test_should_update_permission(): void
     {
-        $response = $this->putJson("$this->baseV1/permissions/1", ['name' => 'test1', 'owner' => null], ['Authorization' => "Bearer $this->token"]);
+        $response = $this->putJson("$this->baseV1/permissions/".$this->getSlugId('permissions'), ['name' => 'test1', 'owner' => null], ['Authorization' => "Bearer $this->token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }
 
     public function test_should_show_permission(): void
     {
-        $response = $this->get("$this->baseV1/permissions/1", ['Authorization' => "Bearer $this->token"]);
+        $response = $this->get("$this->baseV1/permissions/".$this->getSlugId('permissions'), ['Authorization' => "Bearer $this->token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }
 
     public function test_should_delete_permission(): void
     {
-        $response = $this->get("$this->baseV1/permissions/1", ['Authorization' => "Bearer $this->token"]);
+        $response = $this->get("$this->baseV1/permissions/".$this->getSlugId('permissions'), ['Authorization' => "Bearer $this->token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }

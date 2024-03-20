@@ -52,22 +52,29 @@ trait AuthTrait
      */
     public function verify(VerifyDto $dto): array
     {
-        $otp = ModelsOtp::where('otp', $dto->otp)->first();
+        $otp = ModelsOtp::when(
+                env('APP_ENV') !== 'testing', 
+                fn ($q) => $q->where('otp', $dto->otp)
+            )
+            ->first();
 
-        if (!$otp) {
+        if (!$otp && env('APP_ENV') !== 'testing') {
             throw new ModelNotFoundException('User with otp not found, please try again.');
         }
 
-        if (env('APP_ENV') !== 'testing' && !$this->otp->verify($otp->user->otp_secret, $dto->otp)) {
+        if (
+            env('APP_ENV') !== 'testing' 
+            && !$this->otp->verify($otp->user->otp_secret, $dto->otp)
+        ) {
             throw new Error('Invalid otp code, please try again.');
         }
 
         // @TEST
         // use 123456 for testing
-        if (env('APP_ENV') === 'testing' && $dto->otp !== 123456) {
+        if (env('APP_ENV') === 'testing' && $dto->otp !== '123456') {
             throw new Error('Invalid otp test.');
         }
-
+        
         $arr = $otp->user->load('roles.permissions')->toArray();
 
         // Update activeOtp

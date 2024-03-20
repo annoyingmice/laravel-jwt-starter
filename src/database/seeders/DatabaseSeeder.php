@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
                 Permission::factory()
             )
         )->create();
+        Company::factory()->create();
     }
 }

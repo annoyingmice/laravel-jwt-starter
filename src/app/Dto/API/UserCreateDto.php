@@ -13,7 +13,7 @@ class UserCreateDto
         readonly string $email,
         readonly string $phone,
         readonly string $address,
-        readonly string $password
+        readonly ?string $password
     ) {
     }
 

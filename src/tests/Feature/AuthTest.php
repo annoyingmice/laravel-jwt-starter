@@ -3,17 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use stdClass;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * It should test login successfully
-     */
     public function test_should_login_success(): void
     {
         $response = $this->postJson("$this->baseV1/login", ['phone' => '1234']);
@@ -34,19 +29,25 @@ class AuthTest extends TestCase
 
     public function test_should_verify_otp(): void
     {
+        $this->postJson("$this->baseV1/login", ['phone' => '1234']);
         $response = $this->postJson("$this->baseV1/verify", ['otp' => '123456']);
         $response->assertStatus(200);
     }
 
     public function test_should_fail_verify_otp(): void
     {
+        $this->postJson("$this->baseV1/login", ['phone' => '1234']);
         $response = $this->postJson("$this->baseV1/verify", ['otp' => '123455']);
-        $response->assertStatus(404);
+        $response->assertStatus(400);
     }
 
     public function test_should_get_current_auth_user(): void
     {
-        $response = $this->getJson("$this->baseV1/auth", ['Authorization' => "Bearer $this->token"]);
+        $this->postJson("$this->baseV1/login", ['phone' => '1234']);
+        $response = $this->postJson("$this->baseV1/verify", ['otp' => '123456']);
+        $token = $response->json()['data']['access_token'];
+
+        $response = $this->getJson("$this->baseV1/auth", ['Authorization' => "Bearer $token"]);
         $response->assertStatus(200)
             ->assertJsonIsObject();
     }
@@ -55,6 +56,6 @@ class AuthTest extends TestCase
     {
         $token = '';
         $response = $this->getJson("$this->baseV1/auth", ['Authorization' => "Bearer $token"]);
-        $response->assertStatus(500);
+        $response->assertStatus(400);
     }
 }

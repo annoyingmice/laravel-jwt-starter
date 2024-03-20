@@ -10,6 +10,14 @@ use Tests\TestCase;
 class RolePermissionTest extends TestCase
 {
     use RefreshDatabase;
+    /**
+     * Setup run before each test
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->initialize();
+    }
 
     public function test_should_assign_permission(): void
     {
