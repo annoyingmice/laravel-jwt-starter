@@ -3,9 +3,9 @@ run-name: ${{ github.actor }} is testing push commit 🚀
 
 on:
   push:
-    branches: [master, dev]
+    branches: [main, dev]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   tests:
