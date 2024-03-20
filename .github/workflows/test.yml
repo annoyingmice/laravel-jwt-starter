@@ -25,7 +25,7 @@ jobs:
         php-version: '8.3'
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --no-suggest
+      run: composer install
 
     - name: Generate RSA256
       run: php artisan app:rsa
