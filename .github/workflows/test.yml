@@ -1,11 +1,11 @@
-name: Running Test
+name: Test
 run-name: ${{ github.actor }} is testing push commit 🚀
 
 on:
   push:
-    branches: [dev]
+    branches: [master, dev]
   pull_request:
-    branches: [dev]
+    branches: [master]
 
 jobs:
   tests:

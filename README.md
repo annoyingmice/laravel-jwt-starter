@@ -1,6 +1,8 @@
 # Laravel JWT Starter
 
 [![License](https://img.shields.io/badge/license-GNU-blue.svg)](LICENSE)
+[![Test](https://github.com/annoyingmice/laravel-jwt-starter/actions/workflows/test.yml/badge.svg)](https://github.com/annoyingmice/laravel-jwt-starter/actions/workflows/test.yml)
+
 
 ## Overview
 
