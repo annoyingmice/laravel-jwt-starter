@@ -16,9 +16,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Change directory
-      working-directory: ./src
-
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
