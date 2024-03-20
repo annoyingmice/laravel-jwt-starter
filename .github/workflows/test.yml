@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing push commit 🚀
 
 on:
   push:
-    branches: [main, dev]
+    branches: [dev]
   pull_request:
     branches: [main]
 
