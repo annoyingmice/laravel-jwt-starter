@@ -1,4 +1,4 @@
-name: Running Test
+name: Test
 run-name: ${{ github.actor }} is testing push commit 🚀
 
 on:
