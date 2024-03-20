@@ -17,7 +17,6 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Change directory
-      run: cd src
       working-directory: ./src
 
     - name: Set up PHP
