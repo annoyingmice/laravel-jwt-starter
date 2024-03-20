@@ -18,6 +18,7 @@ jobs:
 
     - name: Change directory
       run: cd src
+      working-directory: ./src
 
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
